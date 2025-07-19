@@ -59,7 +59,7 @@ while offset < indisc.image_file.size():
     i = 0
     while i < sector.data_size:
         if outfile is None:
-            print "%s%04d.pnm:"%(args.output_base, file_index),
+            print("%s%04d.pnm:" % (args.output_base, file_index))
             outfile = open_pnm(file_index)
             num_pixels = 0
 
@@ -77,13 +77,13 @@ while offset < indisc.image_file.size():
             if y >= HEIGHT:
                 y = 0
                 file_index += 1
-                print "%d pixels written." % num_pixels
+                print("%d pixels written." % num_pixels)
                 outfile.close()
                 outfile = None
 
     offset += sector.FULL_SIZE
 
 if not (outfile is None):
-    print "%d pixels written." % num_pixels
+    print("%d pixels written." % num_pixels)
     outfile.close()
 

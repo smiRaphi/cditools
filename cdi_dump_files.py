@@ -1,6 +1,5 @@
 from cdi import *
 import argparse
-import sys
 
 # parse command-line arguments
 parser = argparse.ArgumentParser(description='Dumps all directories, files, records and channels from a CD-I disc image')
@@ -40,7 +39,7 @@ with open(args.image_file, 'rb') as cdifile:
                     lbn  += 1
 
                     if block.subheader.eor or block.subheader.eof:
-                        print "%-20s record %4d channel %2d" % (path+file.name, record_num, sh.channel_number)
+                        print("%-20s record %4d channel %2d" % (path+file.name, record_num, sh.channel_number))
 
                         channels[sh.channel_number].close()
                         del channels[sh.channel_number]
@@ -51,4 +50,4 @@ with open(args.image_file, 'rb') as cdifile:
                             channels[v].close()
                             del channels[v]
                         break
-            print
+            print()

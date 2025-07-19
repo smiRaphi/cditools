@@ -1,6 +1,5 @@
 from cdi import *
 import argparse
-import sys
 
 # parse command-line arguments
 parser = argparse.ArgumentParser(description='List all directories, files, records and channels from a CD-I disc image')
@@ -42,23 +41,19 @@ with open(args.image_file, 'rb') as cdifile:
 
                     if block.subheader.eor or block.subheader.eof or byte >= file.size:
                         for channel, contents in channels.items():
-                            print "%-20s record %4d channel %2d:" % (path+file.name, record_num, channel),
-                            if contents[0] > 0: print "%4d empty" % contents[0],
-                            else:               print "          ",
-                            if contents[1] > 0: print "%4d data " % contents[1],
-                            else:               print "          ",
-                            if contents[2] > 0: print "%4d audio" % contents[2],
-                            else:               print "          ",
-                            if contents[3] > 0: print "%4d video" % contents[3]
-                            else:               print "          "
+                            print("%-20s record %4d channel %2d:" % (path+file.name, record_num, channel))
+                            if contents[0] > 0: print("%4d empty" % contents[0])
+                            if contents[1] > 0: print("%4d data " % contents[1])
+                            if contents[2] > 0: print("%4d audio" % contents[2])
+                            if contents[3] > 0: print("%4d video" % contents[3])
 
                         if len(channels) > 1:
-                            print
+                            print()
                         channels = {}
                         record_num += 1
 
                     if block.subheader.eof or byte >= file.size:
                         break
                 if record_num > 1:
-                    print
-            print
+                    print()
+            print()

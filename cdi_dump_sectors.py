@@ -21,7 +21,7 @@ with open(args.image_file, 'rb') as cdifile:
 
     sectors = args.sector_spec.split('-')
     if len(sectors) > 2:
-        print "barf"
+        print("barf")
         sys.exit(2)
 
     if len(sectors) == 1:

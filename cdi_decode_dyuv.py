@@ -56,10 +56,10 @@ y_initial, u_initial, v_initial = 0, 128, 0
 
 quant = [ 0, 1, 4, 9, 16, 27, 44, 79, 128, 177, 212, 229, 240, 247, 252, 255 ]
 
-print "Read %d bytes." % len(delta_y)
+print("Read %d bytes." % len(delta_y))
 
-for idx in xrange(len(delta_y)//(WIDTH*HEIGHT)):
-    print "Image #%d" % idx
+for idx in range(len(delta_y)//(WIDTH*HEIGHT)):
+    print("Image #%d" % idx)
     img = open("%s_%04d.pnm" % (args.output_base, idx), 'w')
     img.write("P3\n")                          
     img.write("%d %d\n" % (WIDTH, HEIGHT))     
@@ -71,9 +71,9 @@ for idx in xrange(len(delta_y)//(WIDTH*HEIGHT)):
     chrom_u = np.reshape(np.array(delta_u[start//2:end//2]), (HEIGHT, WIDTH//2), order='C')
     chrom_v = np.reshape(np.array(delta_v[start//2:end//2]), (HEIGHT, WIDTH//2), order='C')
 
-    for y in xrange(HEIGHT):
+    for y in range(HEIGHT):
         y_pred, u_pred, v_pred = y_initial, u_initial, v_initial
-        for x in xrange(WIDTH):
+        for x in range(WIDTH):
             output_y = (y_pred + quant[lum[y][x]]) % 256
             y_pred = output_y
 

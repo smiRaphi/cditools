@@ -80,7 +80,7 @@ outsamples = array.array("h")
 current_sector = 0
 offset = 0
 encoding = None
-print "%s:" % args.input_file,
+print("%s:" % args.input_file)
 
 decoder = ADPCMDec()
 
@@ -114,7 +114,7 @@ while offset < indisc.image_file.size():
         else:
             decoder = ADPCMDec()
 
-        print "%dHz, %dbit, %s "%(sample_rate, sample_width, "stereo" if stereo else "mono"),
+        print("%dHz, %dbit, %s " % (sample_rate, sample_width, "stereo" if stereo else "mono"))
     else:
         assert encoding == sh.coding_raw, "Entire file must have same encoding"
 
@@ -135,10 +135,10 @@ while offset < indisc.image_file.size():
                     assert sound_group[i] == sound_group[i+4*j]
 
             # level A audio
-            for unit in xrange(4):
+            for unit in range(4):
                 R, F = extract_params(sound_group[unit])
                 decoder.set_params(8-R, F)
-                for sample in xrange(28):
+                for sample in range(28):
                     D = ord(sound_group[16+unit+4*sample])
                     outsamples.append(decoder.propagate(D))
 
@@ -149,23 +149,23 @@ while offset < indisc.image_file.size():
                 assert sound_group[i+8] == sound_group[i+12]
 
             if stereo:
-                for unit in xrange(4):
+                for unit in range(4):
                     R1, F1 = extract_params(sound_group[PARAM_IDX[unit*2]])
                     R2, F2 = extract_params(sound_group[PARAM_IDX[unit*2+1]])
                     decoder_l.set_params(12-R1, F1)
                     decoder_r.set_params(12-R2, F2)
 
-                    for sample in xrange(28):
+                    for sample in range(28):
                         D1, D2 = extract_chans(sound_group[16+unit+4*sample])
                         outsamples.append(decoder_l.propagate(D1))
                         outsamples.append(decoder_r.propagate(D2))
 
             else:
-                for unit in xrange(8):
+                for unit in range(8):
                     R, F = extract_params(sound_group[PARAM_IDX[unit]])
                     decoder.set_params(12-R, F)
 
-                    for sample in xrange(28):
+                    for sample in range(28):
                         D1, D2 = extract_chans(sound_group[16+(unit//2)+4*sample])
                         if unit%2 == 0:
                             outsamples.append(decoder.propagate(D1))
@@ -174,7 +174,7 @@ while offset < indisc.image_file.size():
 
     offset += sector.FULL_SIZE
 
-print " done."
+print("done.")
 
 if len(outsamples) == 0:
     sys.exit(0)
