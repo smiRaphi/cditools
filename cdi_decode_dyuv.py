@@ -1,6 +1,5 @@
 from cdi import *
 import argparse
-import numpy as np
 
 # parse command-line arguments
 parser = argparse.ArgumentParser(description='Decode DYUV image data from an extracted CD-I video track')
@@ -67,9 +66,9 @@ for idx in range(len(delta_y)//(WIDTH*HEIGHT)):
 
     start = WIDTH*HEIGHT*idx
     end   = WIDTH*HEIGHT*(idx+1)
-    lum     = np.reshape(np.array(delta_y[start:end]), (HEIGHT, WIDTH  ), order='C')
-    chrom_u = np.reshape(np.array(delta_u[start//2:end//2]), (HEIGHT, WIDTH//2), order='C')
-    chrom_v = np.reshape(np.array(delta_v[start//2:end//2]), (HEIGHT, WIDTH//2), order='C')
+    lum     = [delta_y[start:end][i * WIDTH:(i + 1) * WIDTH] for i in range(HEIGHT)]
+    chrom_u = [delta_u[start//2:end//2][i * (WIDTH // 2):(i + 1) * (WIDTH // 2)] for i in range(HEIGHT)]
+    chrom_v = [delta_v[start//2:end//2][i * (WIDTH // 2):(i + 1) * (WIDTH // 2)] for i in range(HEIGHT)]
 
     for y in range(HEIGHT):
         y_pred, u_pred, v_pred = y_initial, u_initial, v_initial
